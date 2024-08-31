@@ -2,7 +2,7 @@
 
 This repo holds the files needed to simulate the cargo beep in a gazebo env.
 
-to get gazebo set up see: https://github.com/Umich-NASA-Big-Idea-Challenge/beep_sim 
+to get the sim set up see: https://github.com/Umich-NASA-Big-Idea-Challenge/beep_sim 
 
 you should clone this repo inside the sim env
 
