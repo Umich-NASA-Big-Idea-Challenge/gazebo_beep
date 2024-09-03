@@ -17,6 +17,9 @@
             filename="libignition-gazebo-scene-broadcaster-system.so"
             name="ignition::gazebo::systems::SceneBroadcaster">
         </plugin>
+        <plugin filename="libignition-gazebo-imu-system.so"
+                name="ignition::gazebo::systems::Imu">
+        </plugin>
 
         <light type="directional" name="sun">
             <cast_shadows>true</cast_shadows>
@@ -60,16 +63,22 @@
         <model name='cargo_beep' canonical_link='chassis'>
             <pose relative_to='world'>0 0 0 0 0 0</pose>
             <link name='chassis'>
+                <sensor name="imu_sensor" type="imu">
+                    <always_on>1</always_on>
+                    <update_rate>.5</update_rate>
+                    <visualize>true</visualize>
+                    <topic>imu</topic>
+                </sensor>
                 <pose relative_to='__model__'>0 0 0.6 0 0 0</pose>
                 <inertial> <!--inertial properties of the link mass, inertia matix-->
-                    <mass>1.14395</mass>
+                    <mass>28.01</mass>
                     <inertia>
-                        <ixx>0.095329</ixx>
+                        <ixx>3.48652322917</ixx>
                         <ixy>0</ixy>
                         <ixz>0</ixz>
-                        <iyy>0.381317</iyy>
+                        <iyy>0.0182778958333</iyy>
                         <iyz>0</iyz>
-                        <izz>0.476646</izz>
+                        <izz>3.48506333333</izz>
                     </inertia>
                 </inertial>
                 <visual name='visual'>
@@ -96,14 +105,14 @@
             <link name='left_motor'>
                 <pose relative_to="chassis">0 .58 -.06 0 0 0</pose>
                 <inertial>
-                    <mass>1</mass>
+                    <mass>.485</mass>
                     <inertia>
-                        <ixx>0.043333</ixx>
+                        <ixx>0.00065475</ixx>
                         <ixy>0</ixy>
                         <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
+                        <iyy>0.00065475</iyy>
                         <iyz>0</iyz>
-                        <izz>0.08</izz>
+                        <izz>0.00065475</izz>
                     </inertia>
                 </inertial>
                 <visual name='visual'>
@@ -129,14 +138,14 @@
             <link name='right_motor'>
                 <pose relative_to="chassis">0 -.58 -.06 0 0 0</pose>
                 <inertial>
-                    <mass>1</mass>
+                    <mass>.485</mass>
                     <inertia>
-                        <ixx>0.043333</ixx>
+                        <ixx>0.00065475</ixx>
                         <ixy>0</ixy>
                         <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
+                        <iyy>0.00065475</iyy>
                         <iyz>0</iyz>
-                        <izz>0.08</izz>
+                        <izz>0.00065475</izz>
                     </inertia>
                 </inertial>
                 <visual name='visual'>
@@ -162,14 +171,14 @@
             <link name='left_wheel'>
                 <pose relative_to="left_motor">0 0.135 0 -1.5707 0 0</pose>
                 <inertial>
-                    <mass>1</mass>
+                    <mass>1.2</mass>
                     <inertia>
-                        <ixx>0.043333</ixx>
+                        <ixx>0.053548288</ixx>
                         <ixy>0</ixy>
                         <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
+                        <iyy>0.053548288</iyy>
                         <iyz>0</iyz>
-                        <izz>0.08</izz>
+                        <izz>0.099096576</izz>
                     </inertia>
                 </inertial>
                 <visual name='visual'>
@@ -197,14 +206,14 @@
             <link name='right_wheel'>
                 <pose relative_to="right_motor">0 -0.135 0 -1.5707 0 0</pose> <!--angles are in radian-->
                 <inertial>
-                    <mass>1</mass>
+                    <mass>1.2</mass>
                     <inertia>
-                        <ixx>0.043333</ixx>
+                        <ixx>0.053548288</ixx>
                         <ixy>0</ixy>
                         <ixz>0</ixz>
-                        <iyy>0.043333</iyy>
+                        <iyy>0.053548288</iyy>
                         <iyz>0</iyz>
-                        <izz>0.08</izz>
+                        <izz>0.099096576</izz>
                     </inertia>
                 </inertial>
                 <visual name='visual'>
@@ -261,6 +270,20 @@
                     </limit>
                 </axis>
             </joint>
+            <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>left_wheel_joint</joint_name>
+            <initial_velocity>0</initial_velocity>
+            <topic>/left_vel</topic>
+            </plugin>
+            <plugin
+            filename="gz-sim-joint-controller-system"
+            name="gz::sim::systems::JointController">
+            <joint_name>right_wheel_joint</joint_name>
+            <initial_velocity>0</initial_velocity>
+            <topic>/right_vel</topic>
+            </plugin>
         </model>
     </world>
 </sdf>
