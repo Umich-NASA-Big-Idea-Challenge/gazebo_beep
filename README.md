@@ -10,3 +10,5 @@ the command to start a sim is
 
 ign gazebo name_of_file.sdf
 
+open another terminal in the docker env and run launch.sh in the launch folder this establish a bridge in betwen ros and gazebo so they can talk to eachother
+
