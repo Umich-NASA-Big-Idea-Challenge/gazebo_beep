@@ -71,7 +71,7 @@
                 </visual>
             </link>
         </model>
-        <model name="north_wall">
+        <!-- <model name="north_wall">
             <pose relative_to='world'>10 0 0 0 0 0</pose>
             <static>true</static>
             <link name="link">
@@ -96,7 +96,7 @@
                 </material>
                 </visual>
             </link>
-        </model>
+        </model> -->
         <model name='cargo_beep' canonical_link='chassis'>
             <pose relative_to='world'>0 0 0 0 0 0</pose>
             <link name='chassis'>
