@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <sdf version="1.8">
-    <world name="beep_world">
+    <world name="beep_world">  
         <physics name="1ms" type="ignored">
             <max_step_size>0.001</max_step_size>
             <real_time_factor>1.0</real_time_factor>
@@ -63,6 +63,32 @@
                     </ode>
                     </friction>
                 </surface> -->
+                <material>
+                    <ambient>0.8 0.8 0.8 1</ambient>
+                    <diffuse>0.8 0.8 0.8 1</diffuse>
+                    <specular>0.8 0.8 0.8 1</specular>
+                </material>
+                </visual>
+            </link>
+        </model>
+        <model name="north_wall">
+            <pose relative_to='world'>10 0 0 0 0 0</pose>
+            <static>true</static>
+            <link name="link">
+                <collision name="collision">
+                <geometry>
+                    <plane>
+                    <normal>1 0 0</normal>
+                    </plane>
+                </geometry>
+                </collision>
+                <visual name="visual">
+                <geometry>
+                    <plane>
+                    <normal>1 0 0</normal>
+                    <size>100 100</size>
+                    </plane>
+                </geometry>
                 <material>
                     <ambient>0.8 0.8 0.8 1</ambient>
                     <diffuse>0.8 0.8 0.8 1</diffuse>
@@ -199,17 +225,6 @@
                             <length>0.2</length>
                         </cylinder>
                     </geometry>
-                <surface>
-                    <friction>
-                    <ode>
-                        <mu>50.000000</mu>
-                        <mu2>50.000000</mu2>
-                        <fdir1>0.000000 0.000000 0.000000</fdir1>
-                        <slip1>0.000000</slip1>
-                        <slip2>0.000000</slip2>
-                    </ode>
-                    </friction>
-                </surface>
                     <material>
                         <ambient>1.0 0.0 0.0 1</ambient>
                         <diffuse>1.0 0.0 0.0 1</diffuse>
@@ -276,10 +291,16 @@
                     <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
                     <limit>
                         <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>0</effort>
+                        <effort>9</effort>
+                        <stiffness>0</stiffness>
                         <upper>1.79769e+308</upper>     <!--positive infinity-->
                     </limit>
                 </axis>
+                <physics>
+                    <ode>
+                        <max_force>9</max_force>
+                    </ode>
+                </physics>
             </joint>
             <joint name='right_wheel_joint' type='revolute'>
                 <pose relative_to='right_wheel'/>
@@ -289,10 +310,16 @@
                     <xyz expressed_in='__model__'>0 1 0</xyz>
                     <limit>
                         <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>0</effort>
+                        <effort>9</effort>
+                        <stiffness>0</stiffness>
                         <upper>1.79769e+308</upper>     <!--positive infinity-->
                     </limit>
                 </axis>
+                <physics>
+                    <ode>
+                        <max_force>9</max_force>
+                    </ode>
+                </physics>
             </joint>
             <plugin
                 filename="gz-sim-joint-controller-system"
@@ -300,6 +327,8 @@
                 <joint_name>left_wheel_joint</joint_name>
                 <initial_velocity>0</initial_velocity>
                 <topic>/left_vel</topic>
+                <use_force_commands>false</use_force_commands>
+                <p_gain>1</p_gain>
             </plugin>
             <plugin
                 filename="gz-sim-joint-controller-system"
@@ -307,7 +336,53 @@
                 <joint_name>right_wheel_joint</joint_name>
                 <initial_velocity>0</initial_velocity>
                 <topic>/right_vel</topic>
+                <use_force_commands>false</use_force_commands>
+                <p_gain>1</p_gain>
             </plugin>
         </model>
     </world>
 </sdf>
+            <!-- <plugin name="joint_velocity_plugin" filename="libJointVelocityPlugin.so">
+            <!-- You can add parameters here if needed -->
+            <!-- Example:
+            <left_joint>left_wheel_joint</left_joint>
+            <right_joint>right_wheel_joint</right_joint>
+            -->
+            </plugin> -->
+        <!-- <model name='col' canonical_link='coll'>
+            <pose relative_to='world'>1 0 0 0 0 0</pose>
+            <link name='coll'>
+                <pose relative_to='__model__'>0 0 0 0 0 0</pose>
+                <inertial> <!--inertial properties of the link mass, inertia matix-->
+                    <mass>28.01</mass>
+                    <inertia>
+                        <ixx>3.48652322917</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.0182778958333</iyy>
+                        <iyz>0</iyz>
+                        <izz>3.48506333333</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                <geometry>
+                    <box>
+                        <size>1 .4 4</size>
+                    </box>
+                </geometry>
+                <!--let's add color to our link-->
+                <material>
+                    <ambient>0.0 0.0 1.0 1</ambient>
+                    <diffuse>0.0 0.0 1.0 1</diffuse>
+                    <specular>0.0 0.0 1.0 1</specular>
+                </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>1 .4 4</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+        </model> -->
