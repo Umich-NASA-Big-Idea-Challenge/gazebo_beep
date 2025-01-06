@@ -22,4 +22,16 @@
   gz_type_name: "gz.msgs.Double"
   direction: ROS_TO_GZ  # BIDIRECTIONAL or ROS_TO_IGN
 
+# - ros_topic_name: "dev0/sim_vel"
+#   gz_topic_name: "/left_vel"
+#   ros_type_name: "std_msgs/msg/Float64"
+#   gz_type_name: "gz.msgs.Double"
+#   direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_IGN
+
+# - ros_topic_name: "dev1/sim_vel"
+#   gz_topic_name: "/right_vel"
+#   ros_type_name: "std_msgs/msg/Float64"
+#   gz_type_name: "gz.msgs.Double"
+#   direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_IGN
+
 # /imu@sensor_msgs/msg/Imu@gz.msgs.IMU
