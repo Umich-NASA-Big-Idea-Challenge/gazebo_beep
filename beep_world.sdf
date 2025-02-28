@@ -1,388 +1,69 @@
 <?xml version="1.0" ?>
-<sdf version="1.8">
-    <world name="beep_world">  
-        <physics name="1ms" type="ignored">
-            <max_step_size>0.001</max_step_size>
-            <real_time_factor>1.0</real_time_factor>
-        </physics>
-        <plugin
-            filename="libignition-gazebo-physics-system.so"
-            name="ignition::gazebo::systems::Physics">
-        </plugin>
-        <plugin
-            filename="libignition-gazebo-user-commands-system.so"
-            name="ignition::gazebo::systems::UserCommands">
-        </plugin>
-        <plugin
-            filename="libignition-gazebo-scene-broadcaster-system.so"
-            name="ignition::gazebo::systems::SceneBroadcaster">
-        </plugin>
-        <plugin filename="libignition-gazebo-imu-system.so"
-                name="ignition::gazebo::systems::Imu">
-        </plugin>
-
-        <light type="directional" name="sun">
-            <cast_shadows>true</cast_shadows>
-            <pose>0 0 10 0 0 0</pose>
-            <diffuse>0.8 0.8 0.8 1</diffuse>
-            <specular>0.2 0.2 0.2 1</specular>
-            <attenuation>
-                <range>1000</range>
-                <constant>0.9</constant>
-                <linear>0.01</linear>
-                <quadratic>0.001</quadratic>
-            </attenuation>
-            <direction>-0.5 0.1 -0.9</direction>
-        </light>
-
-        <model name="ground_plane">
-            <static>true</static>
-            <link name="link">
-                <collision name="collision">
-                <geometry>
-                    <plane>
-                    <normal>0 0 1</normal>
-                    </plane>
-                </geometry>
-                </collision>
-                <visual name="visual">
-                <geometry>
-                    <plane>
-                    <normal>0 0 1</normal>
-                    <size>100 100</size>
-                    </plane>
-                </geometry>
-                <!-- <surface>
-                    <friction>
-                    <ode>
-                        <mu>180.000000</mu>
-                        <mu2>180.000000</mu2>
-                        <fdir1>0.000000 0.000000 0.000000</fdir1>
-                        <slip1>0.000000</slip1>
-                        <slip2>0.000000</slip2>
-                    </ode>
-                    </friction>
-                </surface> -->
-                <material>
-                    <ambient>0.8 0.8 0.8 1</ambient>
-                    <diffuse>0.8 0.8 0.8 1</diffuse>
-                    <specular>0.8 0.8 0.8 1</specular>
-                </material>
-                </visual>
-            </link>
-        </model>
-        <!-- <model name="north_wall">
-            <pose relative_to='world'>10 0 0 0 0 0</pose>
-            <static>true</static>
-            <link name="link">
-                <collision name="collision">
-                <geometry>
-                    <plane>
-                    <normal>1 0 0</normal>
-                    </plane>
-                </geometry>
-                </collision>
-                <visual name="visual">
-                <geometry>
-                    <plane>
-                    <normal>1 0 0</normal>
-                    <size>100 100</size>
-                    </plane>
-                </geometry>
-                <material>
-                    <ambient>0.8 0.8 0.8 1</ambient>
-                    <diffuse>0.8 0.8 0.8 1</diffuse>
-                    <specular>0.8 0.8 0.8 1</specular>
-                </material>
-                </visual>
-            </link>
-        </model> -->
-        <model name='cargo_beep' canonical_link='chassis'>
-            <pose relative_to='world'>0 0 0 0 0 0</pose>
-            <link name='chassis'>
-                <sensor name="imu_sensor" type="imu">
-                    <always_on>1</always_on>
-                    <update_rate>10</update_rate>
-                    <visualize>true</visualize>
-                    <topic>imu</topic>
-                </sensor>
-                <pose relative_to='__model__'>0 0 0.6 0 0 0</pose>
-                <inertial> <!--inertial properties of the link mass, inertia matix-->
-                    <mass>28.01</mass>
-                    <inertia>
-                        <ixx>3.48652322917</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.0182778958333</iyy>
-                        <iyz>0</iyz>
-                        <izz>3.48506333333</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                <geometry>
-                    <box>
-                        <size>0.155575 1.2192 0.0127</size>
-                    </box>
-                </geometry>
-                <!--let's add color to our link-->
-                <material>
-                    <ambient>0.0 0.0 1.0 1</ambient>
-                    <diffuse>0.0 0.0 1.0 1</diffuse>
-                    <specular>0.0 0.0 1.0 1</specular>
-                </material>
-                </visual>
-                <collision name='collision'>
-                    <geometry>
-                        <box>
-                            <size>0.155575 1.2192 0.0127</size>
-                        </box>
-                    </geometry>
-                </collision>
-            </link>
-            <link name='left_motor'>
-                <pose relative_to="chassis">0 .58 -.06 0 0 0</pose>
-                <inertial>
-                    <mass>.485</mass>
-                    <inertia>
-                        <ixx>0.00065475</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.00065475</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.00065475</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                    <geometry>
-                        <box>
-                        <size>0.155575 0.053975 0.1016</size>
-                        </box>
-                    </geometry>
-                    <material>
-                        <ambient>0.0 0.0 0.0 1</ambient>
-                        <diffuse>0.0 0.0 0.0 1</diffuse>
-                        <specular>0.0 0.0 0.0 1</specular>
-                    </material>
-                </visual>
-                <collision name='collision'>
-                    <geometry>
-                        <box>
-                        <size>0.155575 0.053975 0.1016</size>
-                        </box>
-                    </geometry>
-                </collision>
-            </link>
-            <link name='right_motor'>
-                <pose relative_to="chassis">0 -.58 -.06 0 0 0</pose>
-                <inertial>
-                    <mass>.485</mass>
-                    <inertia>
-                        <ixx>0.00065475</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.00065475</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.00065475</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                    <geometry>
-                        <box>
-                        <size>0.155575 0.053975 0.1016</size>
-                        </box>
-                    </geometry>
-                    <material>
-                        <ambient>0.0 0.0 0.0 1</ambient>
-                        <diffuse>0.0 0.0 0.0 1</diffuse>
-                        <specular>0.0 0.0 0.0 1</specular>
-                    </material>
-                </visual>
-                <collision name='collision'>
-                    <geometry>
-                        <box>
-                        <size>0.155575 0.053975 0.1016</size>
-                        </box>
-                    </geometry>
-                </collision>
-            </link>
-            <link name='left_wheel'>
-                <pose relative_to="left_motor">0 0.135 0 -1.5707 0 0</pose>
-                <inertial>
-                    <mass>1.2</mass>
-                    <inertia>
-                        <ixx>0.053548288</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.053548288</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.099096576</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                    <geometry>
-                        <cylinder>
-                            <radius>0.4064</radius>
-                            <length>0.2</length>
-                        </cylinder>
-                    </geometry>
-                    <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
-                    </material>
-                </visual>
-                <collision name='collision'>
-                    <geometry>
-                        <cylinder>
-                            <radius>0.4064</radius>
-                            <length>0.2</length>
-                        </cylinder>
-                    </geometry>
-                </collision>
-            </link>
-            <link name='right_wheel'>
-                <pose relative_to="right_motor">0 -0.135 0 -1.5707 0 0</pose> <!--angles are in radian-->
-                <inertial>
-                    <mass>1.2</mass>
-                    <inertia>
-                        <ixx>0.053548288</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.053548288</iyy>
-                        <iyz>0</iyz>
-                        <izz>0.099096576</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                    <geometry>
-                        <cylinder>
-                            <radius>0.4064</radius>
-                            <length>0.2</length>
-                        </cylinder>
-                    </geometry>
-                    <material>
-                        <ambient>1.0 0.0 0.0 1</ambient>
-                        <diffuse>1.0 0.0 0.0 1</diffuse>
-                        <specular>1.0 0.0 0.0 1</specular>
-                    </material>
-                </visual>
-                <collision name='collision'>
-                    <geometry>
-                        <cylinder>
-                            <radius>0.4064</radius>
-                            <length>0.2</length>
-                        </cylinder>
-                    </geometry>
-                </collision>
-            </link>
-            <joint name='left_motor_joint' type='fixed'>
-                <parent>chassis</parent>
-                <child>left_motor</child>
-            </joint>
-            <joint name='right_motor_joint' type='fixed'>
-                <parent>chassis</parent>
-                <child>right_motor</child>
-            </joint>
-            <joint name='left_wheel_joint' type='revolute'>
-                <pose relative_to='left_wheel'/>
-                <parent>left_motor</parent>
-                <child>left_wheel</child>
-                <axis>
-                    <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
-                    <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>9</effort>
-                        <stiffness>0</stiffness>
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
-                    </limit>
-                </axis>
-                <physics>
-                    <ode>
-                        <max_force>9</max_force>
-                    </ode>
-                </physics>
-            </joint>
-            <joint name='right_wheel_joint' type='revolute'>
-                <pose relative_to='right_wheel'/>
-                <parent>right_motor</parent>
-                <child>right_wheel</child>
-                <axis>
-                    <xyz expressed_in='__model__'>0 1 0</xyz>
-                    <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>9</effort>
-                        <stiffness>0</stiffness>
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
-                    </limit>
-                </axis>
-                <physics>
-                    <ode>
-                        <max_force>9</max_force>
-                    </ode>
-                </physics>
-            </joint>
+    <sdf version="1.8">
+        <world name="beep_world">  
+            <physics name="1ms" type="ignored">
+                <max_step_size>0.001</max_step_size>
+                <real_time_factor>1.0</real_time_factor>
+            </physics>
             <plugin
-                filename="gz-sim-joint-controller-system"
-                name="gz::sim::systems::JointController">
-                <joint_name>left_wheel_joint</joint_name>
-                <initial_velocity>0</initial_velocity>
-                <topic>/left_vel</topic>
-                <use_force_commands>false</use_force_commands>
-                <p_gain>1</p_gain>
+                filename="libignition-gazebo-physics-system.so"
+                name="ignition::gazebo::systems::Physics">
             </plugin>
             <plugin
-                filename="gz-sim-joint-controller-system"
-                name="gz::sim::systems::JointController">
-                <joint_name>right_wheel_joint</joint_name>
-                <initial_velocity>0</initial_velocity>
-                <topic>/right_vel</topic>
-                <use_force_commands>false</use_force_commands>
-                <p_gain>1</p_gain>
+                filename="libignition-gazebo-user-commands-system.so"
+                name="ignition::gazebo::systems::UserCommands">
             </plugin>
-        </model>
-    </world>
-</sdf>
-            <!-- <plugin name="joint_velocity_plugin" filename="libJointVelocityPlugin.so">
-            <!-- You can add parameters here if needed -->
-            <!-- Example:
-            <left_joint>left_wheel_joint</left_joint>
-            <right_joint>right_wheel_joint</right_joint>
-            -->
-            </plugin> -->
-        <!-- <model name='col' canonical_link='coll'>
-            <pose relative_to='world'>1 0 0 0 0 0</pose>
-            <link name='coll'>
-                <pose relative_to='__model__'>0 0 0 0 0 0</pose>
-                <inertial> <!--inertial properties of the link mass, inertia matix-->
-                    <mass>28.01</mass>
-                    <inertia>
-                        <ixx>3.48652322917</ixx>
-                        <ixy>0</ixy>
-                        <ixz>0</ixz>
-                        <iyy>0.0182778958333</iyy>
-                        <iyz>0</iyz>
-                        <izz>3.48506333333</izz>
-                    </inertia>
-                </inertial>
-                <visual name='visual'>
-                <geometry>
-                    <box>
-                        <size>1 .4 4</size>
-                    </box>
-                </geometry>
-                <!--let's add color to our link-->
-                <material>
-                    <ambient>0.0 0.0 1.0 1</ambient>
-                    <diffuse>0.0 0.0 1.0 1</diffuse>
-                    <specular>0.0 0.0 1.0 1</specular>
-                </material>
-                </visual>
-                <collision name='collision'>
+            <plugin
+                filename="libignition-gazebo-scene-broadcaster-system.so"
+                name="ignition::gazebo::systems::SceneBroadcaster">
+            </plugin>
+            <plugin filename="libignition-gazebo-imu-system.so"
+                    name="ignition::gazebo::systems::Imu">
+            </plugin>
+    
+            <light type="directional" name="sun">
+                <cast_shadows>true</cast_shadows>
+                <pose>0 0 10 0 0 0</pose>
+                <diffuse>0.8 0.8 0.8 1</diffuse>
+                <specular>0.2 0.2 0.2 1</specular>
+                <attenuation>
+                    <range>1000</range>
+                    <constant>0.9</constant>
+                    <linear>0.01</linear>
+                    <quadratic>0.001</quadratic>
+                </attenuation>
+                <direction>-0.5 0.1 -0.9</direction>
+            </light>
+    
+            <model name="ground_plane">
+                <static>true</static>
+                <link name="link">
+                    <collision name="collision">
                     <geometry>
-                        <box>
-                            <size>1 .4 4</size>
-                        </box>
+                        <plane>
+                        <normal>0 0 1</normal>
+                        </plane>
                     </geometry>
-                </collision>
-            </link>
-        </model> -->
+                    </collision>
+                    <visual name="visual">
+                    <geometry>
+                        <plane>
+                        <normal>0 0 1</normal>
+                        <size>100 100</size>
+                        </plane>
+                    </geometry>
+                    <material>
+                        <ambient>0.8 0.8 0.8 1</ambient>
+                        <diffuse>0.8 0.8 0.8 1</diffuse>
+                        <specular>0.8 0.8 0.8 1</specular>
+                    </material>
+                    </visual>
+                </link>
+            </model>
+
+            <include>
+                <uri>bethany.sdf</uri>
+            </include>
+
+        </world>
+    </sdf>

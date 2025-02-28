@@ -1,0 +1,298 @@
+<?xml version="1.0" ?>
+    <sdf version="1.8">
+        <model name='bethany' canonical_link='chassis'>
+            <link name='chassis'>
+                <sensor name="imu_sensor" type="imu">
+                    <always_on>1</always_on>
+                    <update_rate>10</update_rate>
+                    <visualize>true</visualize>
+                    <topic>imu</topic>
+                </sensor>
+                <pose relative_to='__model__'>0 0 0.6 0 0 0</pose>
+                <inertial>
+                    <mass>28.01</mass>
+                    <inertia>
+                        <ixx>3.48652322917</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.0182778958333</iyy>
+                        <iyz>0</iyz>
+                        <izz>3.48506333333</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                            <size>0.155575 1.2192 0.0127</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0.2 0.1 0.05 1</ambient>
+                        <diffuse>0.5 0.2 0.1 1</diffuse>
+                        <specular>0.3 0.15 0.1 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                            <size>0.155575 1.2192 0.0127</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='left_motor'>
+                <pose relative_to="chassis">0 .58 -.06 0 0 0</pose>
+                <inertial>
+                    <mass>.485</mass>
+                    <inertia>
+                        <ixx>0.00065475</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.00065475</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.00065475</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                        <size>0.155575 0.053975 0.1016</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0.0 0.0 0.0 1</ambient>
+                        <diffuse>0.0 0.0 0.0 1</diffuse>
+                        <specular>0.0 0.0 0.0 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                        <size>0.155575 0.053975 0.1016</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='right_motor'>
+                <pose relative_to="chassis">0 -.58 -.06 0 0 0</pose>
+                <inertial>
+                    <mass>.485</mass>
+                    <inertia>
+                        <ixx>0.00065475</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.00065475</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.00065475</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <box>
+                        <size>0.155575 0.053975 0.1016</size>
+                        </box>
+                    </geometry>
+                    <material>
+                        <ambient>0.0 0.0 0.0 1</ambient>
+                        <diffuse>0.0 0.0 0.0 1</diffuse>
+                        <specular>0.0 0.0 0.0 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <box>
+                        <size>0.155575 0.053975 0.1016</size>
+                        </box>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='left_wheel_hub'>
+                <pose relative_to="left_motor">0 0.1 0 -1.5707 0 0</pose>
+                <inertial>
+                    <mass>1.2</mass>
+                    <inertia>
+                        <ixx>0.053548288</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.053548288</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.099096576</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.19</radius>
+                            <length>0.03</length>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <ambient>.4 .4 .4 1</ambient>
+                        <diffuse>.4 .4 .4 1</diffuse>
+                        <specular>.4 .4 .4 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.16</radius>
+                            <length>0.03</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='left_wheel'>
+                <pose relative_to="left_wheel_hub">0 0 0 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <mesh>
+                            <uri>model://torus.stl</uri>
+                            <scale>1 1 1</scale>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>1.0 0.27 0.0 1</ambient>
+                        <diffuse>1.0 0.27 0.0 1</diffuse>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <mesh>
+                            <uri>model://torus.stl</uri>
+                            <scale>1 1 1</scale>
+                        </mesh>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='right_wheel_hub'>
+                <pose relative_to="right_motor">0 -0.1 0 -1.5707 0 0</pose> <!--angles are in radian-->
+                <inertial>
+                    <mass>1.2</mass>
+                    <inertia>
+                        <ixx>0.053548288</ixx>
+                        <ixy>0</ixy>
+                        <ixz>0</ixz>
+                        <iyy>0.053548288</iyy>
+                        <iyz>0</iyz>
+                        <izz>0.099096576</izz>
+                    </inertia>
+                </inertial>
+                <visual name='visual'>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.19</radius>
+                            <length>0.03</length>
+                        </cylinder>
+                    </geometry>
+                    <material>
+                        <ambient>.4 .4 .4 1</ambient>
+                        <diffuse>.4 .4 .4 1</diffuse>
+                        <specular>.4 .4 .4 1</specular>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <cylinder>
+                            <radius>0.16</radius>
+                            <length>0.03</length>
+                        </cylinder>
+                    </geometry>
+                </collision>
+            </link>
+            <link name='right_wheel'>
+                <pose relative_to="right_wheel_hub">0 0 0 0 0 0</pose>
+                <visual name='visual'>
+                    <geometry>
+                        <mesh>
+                            <uri>model://torus.stl</uri>
+                            <scale>1 1 1</scale>
+                        </mesh>
+                    </geometry>
+                    <material>
+                        <ambient>0.0 0.5 0.5 1</ambient>
+                        <diffuse>0.0 0.5 0.5 1</diffuse>
+                    </material>
+                </visual>
+                <collision name='collision'>
+                    <geometry>
+                        <mesh>
+                            <uri>model://torus.stl</uri>
+                            <scale>1 1 1</scale>
+                        </mesh>
+                    </geometry>
+                </collision>
+            </link>
+            <joint name='left_motor_joint' type='fixed'>
+                <parent>chassis</parent>
+                <child>left_motor</child>
+            </joint>
+            <joint name='right_motor_joint' type='fixed'>
+                <parent>chassis</parent>
+                <child>right_motor</child>
+            </joint>
+            <joint name='left_axel' type='revolute'>
+                <pose relative_to='left_wheel_hub'/>
+                <parent>left_motor</parent>
+                <child>left_wheel_hub</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <effort>9</effort>
+                        <stiffness>0</stiffness>
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+                <physics>
+                    <ode>
+                        <max_force>9</max_force>
+                    </ode>
+                </physics>
+            </joint>
+            <joint name='right_axel' type='revolute'>
+                <pose relative_to='right_wheel_hub'/>
+                <parent>right_motor</parent>
+                <child>right_wheel_hub</child>
+                <axis>
+                    <xyz expressed_in='__model__'>0 1 0</xyz>
+                    <limit>
+                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
+                        <effort>9</effort>
+                        <stiffness>0</stiffness>
+                        <upper>1.79769e+308</upper>     <!--positive infinity-->
+                    </limit>
+                </axis>
+                <physics>
+                    <ode>
+                        <max_force>9</max_force>
+                    </ode>
+                </physics>
+            </joint>
+            <joint name="left_hub" type='fixed'>
+                <parent>left_wheel_hub</parent>
+                <child>left_wheel</child>
+            </joint>
+            <joint name="right_hub" type='fixed'>
+                <parent>right_wheel_hub</parent>
+                <child>right_wheel</child>
+            </joint>
+            <plugin
+                filename="gz-sim-joint-controller-system"
+                name="gz::sim::systems::JointController">
+                <joint_name>left_axel</joint_name>
+                <initial_velocity>0</initial_velocity>
+                <topic>/left_vel</topic>
+                <use_force_commands>false</use_force_commands>
+                <p_gain>1</p_gain>
+            </plugin>
+            <plugin
+                filename="gz-sim-joint-controller-system"
+                name="gz::sim::systems::JointController">
+                <joint_name>right_axel</joint_name>
+                <initial_velocity>0</initial_velocity>
+                <topic>/right_vel</topic>
+                <use_force_commands>false</use_force_commands>
+                <p_gain>1</p_gain>
+            </plugin>
+        </model>
+    </sdf>
