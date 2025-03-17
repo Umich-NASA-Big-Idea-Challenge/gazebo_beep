@@ -222,6 +222,8 @@
                     </geometry>
                 </collision>
             </link>
+
+
             <joint name='left_motor_joint' type='fixed'>
                 <parent>chassis</parent>
                 <child>left_motor</child>
@@ -236,18 +238,11 @@
                 <child>left_wheel_hub</child>
                 <axis>
                     <xyz expressed_in='__model__'>0 1 0</xyz> <!--can be defined as any frame or even arbitrary frames-->
-                    <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>9</effort>
-                        <stiffness>0</stiffness>
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
-                    </limit>
+                    <dynamics>
+                        <damping>0.0</damping>
+                        <friction>0.05</friction>
+                    </dynamics>
                 </axis>
-                <physics>
-                    <ode>
-                        <max_force>9</max_force>
-                    </ode>
-                </physics>
             </joint>
             <joint name='right_axel' type='revolute'>
                 <pose relative_to='right_wheel_hub'/>
@@ -255,18 +250,11 @@
                 <child>right_wheel_hub</child>
                 <axis>
                     <xyz expressed_in='__model__'>0 1 0</xyz>
-                    <limit>
-                        <lower>-1.79769e+308</lower>    <!--negative infinity-->
-                        <effort>9</effort>
-                        <stiffness>0</stiffness>
-                        <upper>1.79769e+308</upper>     <!--positive infinity-->
-                    </limit>
+                    <dynamics>
+                        <damping>0.0</damping>
+                        <friction>0.05</friction>
+                    </dynamics>
                 </axis>
-                <physics>
-                    <ode>
-                        <max_force>9</max_force>
-                    </ode>
-                </physics>
             </joint>
             <joint name="left_hub" type='fixed'>
                 <parent>left_wheel_hub</parent>
@@ -276,23 +264,16 @@
                 <parent>right_wheel_hub</parent>
                 <child>right_wheel</child>
             </joint>
-            <plugin
-                filename="gz-sim-joint-controller-system"
-                name="gz::sim::systems::JointController">
+
+            <plugin name="custom_motor_plugin" filename="/root/gazebo_beep/build/libmotor_plugin.so">
+                <topic>left_duty</topic>
                 <joint_name>left_axel</joint_name>
-                <initial_velocity>0</initial_velocity>
-                <topic>/left_vel</topic>
-                <use_force_commands>false</use_force_commands>
-                <p_gain>1</p_gain>
             </plugin>
-            <plugin
-                filename="gz-sim-joint-controller-system"
-                name="gz::sim::systems::JointController">
+
+            <plugin name="custom_motor_plugin" filename="/root/gazebo_beep/build/libmotor_plugin.so">
+                <topic>right_duty</topic>
                 <joint_name>right_axel</joint_name>
-                <initial_velocity>0</initial_velocity>
-                <topic>/right_vel</topic>
-                <use_force_commands>false</use_force_commands>
-                <p_gain>1</p_gain>
             </plugin>
+
         </model>
     </sdf>
