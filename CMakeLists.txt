@@ -9,7 +9,7 @@ include_directories(${ignition-gazebo6_INCLUDE_DIRS})
 link_directories(${ignition-gazebo6_LIBRARY_DIRS})
 
 # Add the plugin source file
-add_library(motor_plugin SHARED motor_plugin.cpp)
+add_library(motor_plugin SHARED src/motor_plugin.cpp)
 
 # Link the correct Gazebo Sim library
 target_link_libraries(motor_plugin ignition-gazebo6::ignition-gazebo6)
