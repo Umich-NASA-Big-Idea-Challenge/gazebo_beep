@@ -4,22 +4,22 @@
   gz_type_name: "gz.msgs.IMU"
   direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_IGN
 
-- ros_topic_name: "imu1/data"
-  gz_topic_name: "/imu"
-  ros_type_name: "sensor_msgs/msg/Imu"
-  gz_type_name: "gz.msgs.IMU"
-  direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_IGN
+# - ros_topic_name: "imu1/data"
+#   gz_topic_name: "/imu"
+#   ros_type_name: "sensor_msgs/msg/Imu"
+#   gz_type_name: "gz.msgs.IMU"
+#   direction: GZ_TO_ROS  # BIDIRECTIONAL or ROS_TO_IGN
 
-- ros_topic_name: "dev0/sim"
-  gz_topic_name: "/left_vel"
-  ros_type_name: "std_msgs/msg/Float64"
-  gz_type_name: "gz.msgs.Double"
+- ros_topic_name: "dev0/duty"
+  gz_topic_name: "/right_duty"
+  ros_type_name: "std_msgs/msg/Float32"
+  gz_type_name: "gz.msgs.Float"
   direction: ROS_TO_GZ  # BIDIRECTIONAL or ROS_TO_IGN
 
-- ros_topic_name: "dev1/sim"
-  gz_topic_name: "/right_vel"
-  ros_type_name: "std_msgs/msg/Float64"
-  gz_type_name: "gz.msgs.Double"
+- ros_topic_name: "dev1/duty"
+  gz_topic_name: "/left_duty"
+  ros_type_name: "std_msgs/msg/Float32"
+  gz_type_name: "gz.msgs.Float"
   direction: ROS_TO_GZ  # BIDIRECTIONAL or ROS_TO_IGN
 
 # - ros_topic_name: "dev0/sim_vel"
