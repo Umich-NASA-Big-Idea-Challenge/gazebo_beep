@@ -117,7 +117,7 @@
 
             <include>
                 <pose>0 0 .3 0 0 0</pose>
-                <uri>bethany.sdf</uri>
+                <uri>model://models/bethany.sdf</uri>
             </include>
 
         </world>

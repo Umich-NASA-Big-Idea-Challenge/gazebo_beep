@@ -62,7 +62,7 @@
             </model>
 
             <include>
-                <uri>bethany.sdf</uri>
+                <uri>model://models/bethany.sdf</uri>
             </include>
 
         </world>
