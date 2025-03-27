@@ -1,16 +1,14 @@
-#!/bin/bash
-
+#!/bin/sh
 # Simple script to send duty cycle commands to motors
 
 # Function to send command to a motor
 send_to_motor() {
-    local topic=$1
-    local value=$2
+    topic=$1
+    value=$2
     
-    # Validate duty cycle range (-1.0 to 1.0)
-    if (( $(echo "$value < -1.0" | bc -l) )) || (( $(echo "$value > 1.0" | bc -l) )); then
-        echo "Error: Duty cycle must be between -1.0 and 1.0"
-        return 1
+    # Simple validation without bc
+    if [ "$value" = "stop" ]; then
+        value="0.0"
     fi
     
     # Send command via ignition transport
@@ -18,37 +16,43 @@ send_to_motor() {
     echo "Sent $value to /$topic"
 }
 
-# Help message
-if [[ "$1" == "-h" || "$1" == "--help" || $# -eq 0 ]]; then
+# Process commands
+if [ "$1" = "left" ]; then
+    if [ "$2" = "stop" ] || [ -z "$2" ]; then
+        send_to_motor "left_duty" "0.0"
+    else
+        send_to_motor "left_duty" "$2"
+    fi
+elif [ "$1" = "right" ]; then
+    if [ "$2" = "stop" ] || [ -z "$2" ]; then
+        send_to_motor "right_duty" "0.0"
+    else
+        send_to_motor "right_duty" "$2"
+    fi
+elif [ "$1" = "both" ]; then
+    if [ "$2" = "stop" ] || [ -z "$2" ]; then
+        send_to_motor "left_duty" "0.0"
+        send_to_motor "right_duty" "0.0"
+    else
+        send_to_motor "left_duty" "$2"
+        send_to_motor "right_duty" "$2"
+    fi
+elif [ "$1" = "stop" ]; then
+    send_to_motor "left_duty" "0.0"
+    send_to_motor "right_duty" "0.0"
+    echo "Motors stopped"
+else
     echo "Usage: $0 [OPTION]"
     echo "Options:"
     echo "  left VALUE    Set left motor duty cycle (-1.0 to 1.0)"
     echo "  right VALUE   Set right motor duty cycle (-1.0 to 1.0)"
     echo "  both VALUE    Set both motors to same duty cycle"
     echo "  stop          Stop all motors"
-    exit 0
+    echo ""
+    echo "Examples:"
+    echo "  $0 left 0.5     # Set left motor to 50% forward"
+    echo "  $0 right -0.3   # Set right motor to 30% reverse"
+    echo "  $0 both 0.7     # Set both motors to 70% forward"
+    echo "  $0 left stop    # Stop left motor"
+    echo "  $0 stop         # Stop all motors"
 fi
-
-# Process commands
-case "$1" in
-    left)
-        send_to_motor "left_duty" "$2"
-        ;;
-    right)
-        send_to_motor "right_duty" "$2"
-        ;;
-    both)
-        send_to_motor "left_duty" "$2"
-        send_to_motor "right_duty" "$2"
-        ;;
-    stop)
-        send_to_motor "left_duty" "0.0"
-        send_to_motor "right_duty" "0.0"
-        echo "Motors stopped"
-        ;;
-    *)
-        echo "Unknown command: $1"
-        echo "Use -h or --help for usage information"
-        exit 1
-        ;;
-esac
