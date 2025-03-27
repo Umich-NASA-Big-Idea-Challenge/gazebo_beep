@@ -42,7 +42,7 @@ private:
     
     // Gearbox parameters
     const double gear_ratio = 9.0;             // 9:1 reduction
-    const double gearbox_efficiency = 0.90;    // 90% efficiency
+    const double gearbox_efficiency = .9;    // 90% efficiency
     const double backdrive_friction = 0.51;    // Nm
     const double backlash_angle = 0.19 * (M_PI/180.0); // rad (converted from degrees)
     
@@ -64,6 +64,9 @@ private:
     double torque_integration = 0.0;
     double last_high_torque_time = 0.0;
 
+    //used for making sure duty spins it in the right direction
+    bool invert_direction = false;
+
 public:
     void Configure(const Entity &_entity,
                    const std::shared_ptr<const sdf::Element> &_sdf,
@@ -84,6 +87,11 @@ public:
         } else {
             ignerr << "CustomMotorPlugin: joint_name needs to be specified.\n";
             return;
+        }
+
+        if (_sdf->HasElement("invert_direction"))
+        {
+            invert_direction = _sdf->Get<bool>("invert_direction");
         }
 
         jointEntity = model.JointByName(_ecm, joint_name);
@@ -118,6 +126,11 @@ public:
     void OnMsg(const msgs::Double &_msg)
     {
         duty_cycle = _msg.data();
+
+        if(invert_direction) {
+            duty_cycle = -duty_cycle;
+        }
+
         ignmsg << "Received duty cycle: " << duty_cycle << "\n";
         if(duty_cycle < -1 || duty_cycle > 1) {
             ignerr << "CustomMotorPlugin: duty is out of range\n";
